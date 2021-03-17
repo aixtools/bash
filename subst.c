@@ -5926,8 +5926,11 @@ process_substitute (string, open_for_read_in_child)
 #if !defined (HAVE_DEV_FD)
   /* Open the named pipe in the child. */
   fd = open (pathname, open_for_read_in_child ? O_RDONLY : O_WRONLY);
+#ifdef _AIX
+  /* Only tested on AIX */
   /* now that the file is open (or not) * unlink it to keep garbage down */
   unlink(pathname);
+#endif
   if (fd < 0)
     {
       /* Two separate strings for ease of translation. */
